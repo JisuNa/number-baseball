@@ -17,9 +17,9 @@
 ```json
 {
   "success": true,
-    "data": {
-        "gameId": 123
-    }
+  "data": {
+    "gameId": 123
+  }
 }
 ```
 
