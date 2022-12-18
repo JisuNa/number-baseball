@@ -4,6 +4,7 @@ import flab.toy.numberbaseball.common.ResponseVo
 import flab.toy.numberbaseball.service.GameService
 import flab.toy.numberbaseball.vo.GameGuessRequestVo
 import flab.toy.numberbaseball.vo.GameGuessResponseVo
+import flab.toy.numberbaseball.vo.GameResultResponseVo
 import flab.toy.numberbaseball.vo.GameStartResponseVo
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -13,11 +14,6 @@ import javax.validation.Valid
 class GameController(
     private val gameService: GameService
 ) {
-    @GetMapping("/{gameId}", name = "게임 번호 확인")
-    fun getGame(@PathVariable gameId: Long): ResponseVo<List<Int>> {
-        return ResponseVo(gameService.getGame(gameId))
-    }
-
     @PostMapping("/start", name = "게임 시작")
     fun startGame(): ResponseVo<GameStartResponseVo> {
         return ResponseVo(gameService.startGame())
@@ -29,5 +25,10 @@ class GameController(
         @RequestBody @Valid gameGuessRequestVo: GameGuessRequestVo
     ): ResponseVo<GameGuessResponseVo> {
         return ResponseVo(gameService.guessNumber(gameId, gameGuessRequestVo))
+    }
+
+    @GetMapping("/{gameId}", name = "게임 결과")
+    fun getGameResult(@PathVariable gameId: Long): ResponseVo<GameResultResponseVo> {
+        return ResponseVo(gameService.getGameResult(gameId))
     }
 }

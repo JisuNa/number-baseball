@@ -4,7 +4,10 @@ import flab.toy.numberbaseball.entity.Game
 import flab.toy.numberbaseball.vo.GameGuessRequestVo
 import flab.toy.numberbaseball.vo.GameGuessResponseVo
 
-class Referee(game: Game, guess: GameGuessRequestVo) {
+class Referee(
+    private val game: Game,
+    guess: GameGuessRequestVo
+) {
     var strike: Int = 0
     var ball: Int = 0
     var out: Int = 0
@@ -24,9 +27,9 @@ class Referee(game: Game, guess: GameGuessRequestVo) {
         }
     }
 
-    fun getResult() = GameGuessResponseVo(
-        correct = false,
-        remainingCount = 1,
+    fun decision() = GameGuessResponseVo(
+        correct = strike == 3,
+        remainingCount = game.remainingCount,
         strike = strike,
         ball = ball,
         out = out

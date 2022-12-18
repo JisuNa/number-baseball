@@ -7,12 +7,32 @@ import flab.toy.numberbaseball.common.Codes.GameStatus.PLAYING
 class Game(
     val answer: List<Int>
 ) : BaseEntity() {
-    private var failCount: Int = 0
+    var remainingCount: Int = MAX_REMAIN_COUNT
     private var status: Codes.GameStatus = PLAYING
 
-    fun increaseFailCount() = failCount.inc()
+    fun decreaseRemainingCount() {
+        remainingCount--
+
+        if (remainingCount == 0) {
+            closeGame()
+        }
+    }
 
     fun closeGame() {
         status = CLOSED
+    }
+
+    fun assertPlayGame() {
+        if (remainingCount == 0) {
+            throw Exception()
+        }
+
+        if (status.isClosed()) {
+            throw Exception()
+        }
+    }
+
+    companion object {
+        private const val MAX_REMAIN_COUNT = 10
     }
 }
