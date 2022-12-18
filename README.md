@@ -1,6 +1,4 @@
 # 숫자 야구 게임
-
----
 ## 요구사항
 - 답변은 최대 (n)10번까지만 할 수 있다
 - 답변 횟수가 최대치를 넘거나, 정답을 맞추는 경우 게임이 종료된 걸로 한다
@@ -17,9 +15,9 @@
 ```json
 {
   "success": true,
-    "data": {
-        "gameId": 123
-    }
+  "data": {
+    "gameId": 123
+  }
 }
 ```
 
@@ -61,7 +59,7 @@
 ### 3. 게임 결과
 [GET] /game/{gameId}
 
-**request**
+**response**
 ```json
 {
     "success": true,
@@ -71,6 +69,10 @@
     }
 }
 ```
+
+### 4. 게임 진행 기록
+[GET] /game/123/history
+
 **response**
 ```json
 {    
