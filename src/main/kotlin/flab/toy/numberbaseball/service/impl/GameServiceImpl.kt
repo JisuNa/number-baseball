@@ -34,14 +34,15 @@ class GameServiceImpl(
                     game.closeGame()
                 }
 
-                recordHistory(gameGuessRequestVo.guessNumbers, it.strike, it.ball, it.out)
+                recordHistory(gameId, gameGuessRequestVo.guessNumbers, it.strike, it.ball, it.out)
             }
         } ?: throw Exception()
     }
 
-    private fun recordHistory(answer: String, strike: Int, ball: Int, out: Int) {
+    private fun recordHistory(gameId: Long, answer: String, strike: Int, ball: Int, out: Int) {
         historyRepository.save(
             History(
+                gameId = gameId,
                 answer = answer,
                 result = BaseballCountVo(
                     strike = strike,
@@ -56,5 +57,16 @@ class GameServiceImpl(
         return gameRepository.findById(gameId)?.let {
             GameResultResponseVo(it.remainingCount, 10 - it.remainingCount)
         } ?: GameResultResponseVo()
+    }
+
+    override fun getGuessHistory(gameId: Long): GameGuessHistoryVo {
+        return GameGuessHistoryVo(
+            histories = historyRepository.findByGameId(gameId).map { history ->
+                GuessHistoryVo(
+                    answer = history.answer,
+                    result = history.result
+                )
+            }
+        )
     }
 }

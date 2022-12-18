@@ -2,10 +2,7 @@ package flab.toy.numberbaseball.controller
 
 import flab.toy.numberbaseball.common.ResponseVo
 import flab.toy.numberbaseball.service.GameService
-import flab.toy.numberbaseball.vo.GameGuessRequestVo
-import flab.toy.numberbaseball.vo.GameGuessResponseVo
-import flab.toy.numberbaseball.vo.GameResultResponseVo
-import flab.toy.numberbaseball.vo.GameStartResponseVo
+import flab.toy.numberbaseball.vo.*
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
@@ -30,5 +27,10 @@ class GameController(
     @GetMapping("/{gameId}", name = "게임 결과")
     fun getGameResult(@PathVariable gameId: Long): ResponseVo<GameResultResponseVo> {
         return ResponseVo(gameService.getGameResult(gameId))
+    }
+
+    @GetMapping("/{gameId}/history", name = "게임 진행 기록")
+    fun getGuessHistory(@PathVariable gameId: Long): ResponseVo<GameGuessHistoryVo> {
+        return ResponseVo(gameService.getGuessHistory(gameId))
     }
 }

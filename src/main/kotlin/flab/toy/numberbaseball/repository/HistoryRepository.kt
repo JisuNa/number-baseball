@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository
 @Repository
 class HistoryRepository(
     override val data: MutableSet<History>
-) : AbstractRepository<History>()
+) : AbstractRepository<History>() {
+    fun findByGameId(gameId: Long): List<History> {
+        return data.filter { it.gameId == gameId }
+    }
+}
